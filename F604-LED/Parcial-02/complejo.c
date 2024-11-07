@@ -100,7 +100,7 @@ complejo coseno(complejo z)
     //Definición cos(z)=cos(a)cos(bi)-sen(bi)sen(a); además, 2*cos(a)= exp[ia]+exp[-ia]
     //Con ello: sen(ai)=i*senh(a), cos(ai)=cosh(a)
     complejo aux;
-    aux.re = sin(z.re)*cosh(z.im);
-    aux.im = cos(z.re)*sinh(z.im);
+    aux.re = cos(z.re)*cosh(z.im);
+    aux.im = -sin(z.re)*sinh(z.im);
     return aux;
 }
