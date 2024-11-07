@@ -5,6 +5,8 @@ Licenciado: Héctor Pérez
 
 ## Proyectos/Parciales
 1. [**Parcial 2:**](Parcial-02) Contiene el proyecto para el segundo parcial del semestre.
+
+    Funciones añadidas: Seno, Coseno, Logaritmo natural, Potencias de complejos.
 2. [**Exámen final**](Final) Contiene el proyecto para el exámen final.
 
 ## Instalación de gcc en ArchLinux
@@ -24,5 +26,7 @@ Licenciado: Héctor Pérez
 
 ## Compilación de varios archivos C
 ```
-gcc -o [nombre del ejecutable y *extension] (archivo1.c) (archivo2.c) (...) -lm
+gcc -o [nombre del ejecutable.*extension] (archivo1.c) (archivo2.c) (...) -lm
+./[nombre del ejecutable.*extension]
 ```
+* Ejemplo: `gcc -o test test.c complejo.c -lm`
