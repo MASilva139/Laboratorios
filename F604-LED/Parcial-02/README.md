@@ -24,11 +24,7 @@ Debe entregarse en un archivo comprimido (.zip o .tar.gz) con los códigos del a
 ## Resolución
 * Potencia de complejos: Sean los complejos $Z_1=a+b\cdot i$, $Z_2=x+y\cdot i$; entonces,
 $$
-Z = Z_1^{Z_2}
-\longrightarrow
-Z=(a+b\cdot i)^{(x+y\cdot i)}
-\longrightarrow
-Z = 
+Z = Z_1^{Z_2} \longrightarrow Z=(a+b\cdot i)^{(x+y\cdot i)} \longrightarrow Z = 
 $$
 ```latex
 \documentclass{article}
