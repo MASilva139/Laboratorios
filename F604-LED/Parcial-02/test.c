@@ -27,7 +27,7 @@ int main()
     complejo e_comp;
     //logaritmo de complejos
     e_comp = logaritmo(a_comp);
-    printf("* potencia ln(a): %f + %f*i\n",e_comp.re,e_comp.im);
+    printf("* logaritmo natural ln(a): %f + %f*i\n",e_comp.re,e_comp.im);
 
     //seno de complejos
     e_comp = seno(a_comp);
@@ -60,8 +60,8 @@ int main()
     printf("* multiplicacion a*c:  %f + %f*i\n",d_comp.re,d_comp.im);
 
     //división de complejos
-    d_comp = divicion(a_comp,c_comp);
-    printf("* divicion a/c:  %f + %f*i\n",d_comp.re,d_comp.im);
+    d_comp = division(a_comp,c_comp);
+    printf("* division a/c:  %f + %f*i\n",d_comp.re,d_comp.im);
 
     //potenica de complejos
     d_comp = potencia(a_comp,c_comp);
@@ -69,7 +69,7 @@ int main()
 
     //logaritmo de complejos
     d_comp = logaritmo(c_comp);
-    printf("* potencia ln(c): %f + %f*i\n",d_comp.re,d_comp.im);
+    printf("* logaritmo natural ln(c): %f + %f*i\n",d_comp.re,d_comp.im);
 
     //seno de complejos
     d_comp = seno(c_comp);

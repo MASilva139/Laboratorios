@@ -44,7 +44,7 @@ complejo multiplicacion( complejo comp_a, complejo comp_b )
     return aux;
 }
 
-complejo divicion( complejo comp_a, complejo comp_b )
+complejo division( complejo comp_a, complejo comp_b )
 {
     complejo aux1, aux2, aux3;
     aux1 = conjugado( comp_b );

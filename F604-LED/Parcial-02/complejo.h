@@ -14,7 +14,7 @@ complejo conjugado( complejo );
 complejo suma( complejo, complejo );
 complejo resta( complejo, complejo );
 complejo multiplicacion( complejo, complejo );
-complejo divicion( complejo, complejo );
+complejo division( complejo, complejo );
 complejo potencia( complejo, complejo );
 complejo logaritmo( complejo );
 complejo seno( complejo );
