@@ -6,7 +6,9 @@ Para el presente ejercicio de complejos hay que añadir las siguientes funciones
 Z=(Z_1)^{Z_2}\hspace{10pt};\hspace{30pt} Z_1,Z_2\in \mathbb{C}
 ```
 * Logaritmo natural de complejos
+$$
 Z=\ln\left(Z_1\right)\hspace{10pt};\hspace{30pt} Z_1\in \mathbb{C}
+$$
 * Seno de complejos
 Z=\sin\left(Z_1\right)\hspace{10pt};\hspace{30pt} Z_1\in \mathbb{C}
 * Coseno de complejos
