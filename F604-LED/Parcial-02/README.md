@@ -2,8 +2,8 @@
 ## Instrucciones:
 Para el presente ejercicio de complejos hay que añadir las siguientes funciones:
 * Potencia de complejos
-```html
-<p>\( Z=(Z_1)^{Z_2}\hspace{10pt};\hspace{30pt} Z_1,Z_2\in \mathbb{C} \)</p>
+```math
+Z=(Z_1)^{Z_2}\hspace{10pt};\hspace{30pt} Z_1,Z_2\in \mathbb{C}
 ```
 * Logaritmo natural de complejos
 Z=\ln\left(Z_1\right)\hspace{10pt};\hspace{30pt} Z_1\in \mathbb{C}
@@ -22,13 +22,3 @@ Debe entregarse en un archivo comprimido (.zip o .tar.gz) con los códigos del a
 $$
 Z = Z_1^{Z_2} \longrightarrow Z=(a+b\cdot i)^{(x+y\cdot i)} \longrightarrow Z = 
 $$
-```latex
-\documentclass{article}
-\userpackage{asmath}
-\newcommand{\abs}[1]{\left| #1 \right|}
-\begin{document}
-\begin{equation}
-    \abs{s}
-\end{equation}
-\end{document}
-```
