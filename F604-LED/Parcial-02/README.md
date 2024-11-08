@@ -2,7 +2,9 @@
 ## Instrucciones:
 Para el presente ejercicio de complejos hay que añadir las siguientes funciones:
 * Potencia de complejos
-\( Z=(Z_1)^{Z_2}\hspace{10pt};\hspace{30pt} Z_1,Z_2\in \mathbb{C} \)
+```html
+<p>\( Z=(Z_1)^{Z_2}\hspace{10pt};\hspace{30pt} Z_1,Z_2\in \mathbb{C} \)</p>
+```
 * Logaritmo natural de complejos
 Z=\ln\left(Z_1\right)\hspace{10pt};\hspace{30pt} Z_1\in \mathbb{C}
 * Seno de complejos
