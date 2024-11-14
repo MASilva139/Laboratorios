@@ -1,7 +1,7 @@
 # EXAMEN FINAL
 ## Instrucciones:
 A partir del código que se encuentra en la carpeta complejo2 de codes, extender el archivo complejo.h y complejo.c para incluir lo siguiente:
-* Una estructura (struct) que aloje los datos de una matriz de $n\ times m$.  
+* Una estructura (struct) que aloje los datos de una matriz de $`n\times m`$.  
 * Una función que realice el producto de dos matrices.
 Ademas se debe crear un archivo .c donde se incluyan los archivos modificados y se muestre el funcionamiento de la estructura y funcion añadida.
 
