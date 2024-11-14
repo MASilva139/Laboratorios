@@ -34,12 +34,9 @@ int main()
     aux = vector_complejo_ppunto( vect_comp_a, vect_comp_b);
     printf("Producto punto (interno) A.B = %s\n", mostrar(aux));
 
-    
     vector_complejo_liberar( vect_comp_a );
     vector_complejo_liberar( vect_comp_b );
     printf("Tamaño asignado al vector: %i\n",vector_complejo_tamanio(vect_comp_a));
-
-    
 
     return 0;
 }
