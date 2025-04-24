@@ -1,0 +1,11 @@
+**/*.aux
+**/*.fdb_latexmk
+**/*.fls
+**/*.out
+**/*.log
+**/*.synctex.gz
+**/*.blg
+**/*.bbl
+**/*.zip
+**/*.rar
+.venv
