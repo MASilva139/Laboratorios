@@ -7,20 +7,20 @@ from sistema_base import sistema
 
 class propiedadesfisicas:
     def __init__(self, masa, posicion, v):
-        self._masa = masa
-        self._posicion = list(posicion)
-        self._v = list(v)
-        self._r = math.log(masa) if masa > 0 else 1 # Relación entre masa y radio
+        self.masa = masa
+        self.posicion = list(posicion)
+        self.v = list(v)
+        self.r = math.log(masa) if masa > 0 else 1 # Relación entre masa y radio
         self.trayectoria = [tuple(posicion)]
-        self.active = true
+        self.activo = true
 
     @staticmethod
     def G():
         return 6.67430e-11 # Unidades en [(N*m^2)/kg^2]
 
-    def F(self, f, dt):
-        ax = f[0]/self._masa
-        ay = f[1]/self._masa
+    def Force(self, fuerza, dt):
+        ax = fuerza[0]/self._masa
+        ay = fuerza[1]/self._masa
         self._v[0] += ax * dt
         self._v[1] += ay * dt
         self._posicion[0] += self._v[0] * dt
@@ -30,7 +30,7 @@ class propiedadesfisicas:
         if len(self.trayectoria) > 1000:
             temp_trayectoria = self.trayectoria[1:]
             self.trayectoria = temp_trayectoria
-            print(self.trayectoria)
+            # print(self.trayectoria)
 
 class propiedadesvisuales:
     def _init__(self, color, forma):
