@@ -1,11 +1,10 @@
 import math
 import pygame
-import sys
-from processing.simulacion import SimulacionG
+from cuerpos import 
 
 class SimulacionG:
     def __init__(self):
-        self.cuerpos = SISTEMA.system
+        self.cuerpos = []
         self.inicializar_objetos()
 
     def inicializar_objetos(self):

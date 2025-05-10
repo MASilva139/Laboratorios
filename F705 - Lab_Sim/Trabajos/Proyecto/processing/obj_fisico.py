@@ -2,20 +2,15 @@ import numpy as np
 from math import sqrt, atan2
 import pygame
 import random
-from config import config
 
 class propiedadesfisicas:
     def __init__(self, masa, posicion, v):
         self._masa = masa
-        self.posicion = list(posicion)
-        self.v = list(v)
+        self._posicion = list(posicion)
+        self._v = list(v)
         self.r = math.log(masa) if masa > 0 else 1 # Relación entre masa y radio
         self.trayectoria = [tuple(posicion)]
-        self.activo = true
-
-    @staticmethod
-    def G():
-        return 6.67430e-11 # Unidades en [(N*m^2)/kg^2]
+        self.activo = True
 
     def Force(self, fuerza, dt):
         ax = fuerza[0]/self._masa
@@ -32,9 +27,9 @@ class propiedadesfisicas:
             # print(self.trayectoria)
 
 class propiedadesvisuales:
-    def _init__(self, color, forma):
-        self.color = (COLORES) # Asignando a cada planeta/estrella un color aleatorio RGB
-        self.forma = random.choice(FORMAS)
+    def __init__(self, color, forma):
+        self.color = color
+        self.forma = forma
 
     def draw(self, pantalla):
         if len(self.trayectoria) > 1:
