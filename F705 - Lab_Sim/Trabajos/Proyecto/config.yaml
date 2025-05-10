@@ -1,0 +1,36 @@
+pantalla:
+  width: 1280
+  height: 720
+  background_color: [0, 0, 0]
+
+constantes:
+  G: 6.67430e-11
+  formas: ["circulo", "cuadrado", "triangulo"]
+  colores:
+    - [255, 0, 0]
+    - [0, 255, 0]
+    - [0, 0, 255]
+    - [255, 255, 0]
+    - [255, 0, 255]
+    - [0, 255, 255]
+    - [255, 165, 0]
+    - [128, 0, 128]
+    - [0, 128, 128]
+    - [128, 128, 0]
+    - [245, 122, 138]
+    - [255, 127, 80]
+    - [240, 128, 114]
+    - [128, 0, 0]
+    - [255, 255, 255]
+
+simulacion:
+  cuerpos_iniciales: 20
+  distribucion_masa:
+    mu: 1.0e24
+    sigma: 5.0e23
+  distribucion_posicion:
+    min: 0.0
+    max: 1.0
+  distribucion_velocidad:
+    mu: 0.0
+    sigma: 1.0e3

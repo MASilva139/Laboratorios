@@ -1,3 +1,6 @@
+import yaml
+with open('config.yaml', 'r') as f:
+    config = yaml.safe_load(f)
 # Configuración del pygame
 WIDTH, HEIGHT = 1280, 720
 BACKGROUND_COLOR = (0, 0, 0)

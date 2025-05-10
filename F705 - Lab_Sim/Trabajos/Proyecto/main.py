@@ -1,4 +1,3 @@
-from numpy.polynomial.hermite import hermweight
 import pygame
 from
 

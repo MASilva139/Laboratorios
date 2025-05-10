@@ -1,33 +1,29 @@
-from multiprocessing import Pool
 import math
 import pygame
-from sistema_base import sistema
-from config import WIDTH, HEIGHT, BACKGROUND_COLOR
-from cuerpos import Planeta
-
-datos = sistema()
+import sys
+from processing.simulacion import SimulacionG
 
 class SimulacionG:
     def __init__(self):
-        self.cuerpos = []
+        self.cuerpos = SISTEMA.system
         self.inicializar_objetos()
 
     def inicializar_objetos(self):
-        self.objetos.append
+        self.cuerpos.append
 
     def F():
         fuerzas = {}
-        for i, objeto_i in enumerate(self.objetos):
-            if not objeto_i.activo:
+        for i, cuerpo_i in enumerate(self.cuerpos):
+            if not cuerpo_i.activo:
                 continue
             F_Total = [0, 0]
-            for j, objeto_j in enumerate(self.objetos):
-                if i == j or not objeto_j.activo:
+            for j, cuerpo_j in enumerate(self.cuerpos):
+                if i == j or not cuerpo_j.activo:
                     continue
-                dx = objeto_j.posicion[0] - objeto_i.posicion[0]
-                dy = objeto_j.posicion[1] - objeto_i.posicion[1]
-                rij = matl.sqrt(dx**2 + dy**2) + 1e-5
-                fuerza = G*objeto_i.masa*objeto_j.masa / (rij**2)
+                dx = cuerpo_j.posicion[''][0] - cuerpo_i.posicion[0]
+                dy = cuerpo_j.posicion[1] - cuerpo_i.posicion[1]
+                rij = math.sqrt(dx**2 + dy**2) + 1e-5
+                fuerza = G*cuerpo_i.masa*cuerpo_j.masa / (rij**2)
                 theta = math.atan2(dy, dx)
                 F_Total[0] += fuerza*math.cos(theta)
                 F_Total[1] += fuerza*math.sin(theta)

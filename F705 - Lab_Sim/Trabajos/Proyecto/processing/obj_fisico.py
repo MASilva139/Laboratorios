@@ -2,12 +2,11 @@ import numpy as np
 from math import sqrt, atan2
 import pygame
 import random
-from abc import ABC, abstractmethod
-from sistema_base import sistema
+from config import config
 
 class propiedadesfisicas:
     def __init__(self, masa, posicion, v):
-        self.masa = masa
+        self._masa = masa
         self.posicion = list(posicion)
         self.v = list(v)
         self.r = math.log(masa) if masa > 0 else 1 # Relación entre masa y radio
@@ -34,8 +33,8 @@ class propiedadesfisicas:
 
 class propiedadesvisuales:
     def _init__(self, color, forma):
-        self.color = (random.radint(0, 255), random.radint(0, 255), random.radint(0, 255)) # Asignando a cada planeta/estrella un color aleatorio RGB
-        self.forma = random.choice(['circulo', 'cuadrado', 'triangulo'])
+        self.color = (COLORES) # Asignando a cada planeta/estrella un color aleatorio RGB
+        self.forma = random.choice(FORMAS)
 
     def draw(self, pantalla):
         if len(self.trayectoria) > 1:
@@ -43,14 +42,14 @@ class propiedadesvisuales:
             pygame.draw.lines(pantalla, self.color, False, puntos, 2)
         x, y = int(self._posicion[0]), int(self._posicion[1])
         if self.forma == "circulo":
-            pygame.draw.circle(pantalla, self.color, (x, y), self.radio)
+            pygame.draw.circle(pantalla, self.color, (x, y), self.r)
         elif self.forma == "cuadrado":
-            rect = pygame.Rect(x-self.radio, y-self.radio, self.radio*2, self.radio*2)
+            rect = pygame.Rect(x - self.r, y - self.r, self.r*2, self.r*2)
             pygame.draw.rect(pantalla, self.color, rect)
         elif self.forma == "triangulo":
             puntos = [
-                (x, y-self.radio),
-                (x-self.radio, y+self.radio),
-                (x+self.radio, y+self.radio)
+                (x, y - self.r),
+                (x - self.r, y + self.r),
+                (x + self.r, y + self.r)
             ]
             pygame.draw.polygon(pantalla, self.color, puntos)
