@@ -24,7 +24,7 @@ constantes:
     - [255, 255, 255]
 
 simulacion:
-  cuerpos_iniciales: 20
+  n: 20
   distribucion_masa:
     mu: 1.0e24
     sigma: 5.0e23

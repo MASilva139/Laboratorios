@@ -1,14 +1,26 @@
 import math
 import pygame
-from cuerpos import 
+import random
+import numpy as np
+from multiprocessing import Pool
+from processing.cuerpos import Cuerpo
+from processing.utils import load_config
 
 class SimulacionG:
     def __init__(self):
+        self.config = load_config()
         self.cuerpos = []
+        self.G = self.config['constantes']['G']
+        self.colores = self.config['constantes']['colores']
+        self.formas = self.config['constantes']['formas']
         self.inicializar_objetos()
 
+    
     def inicializar_objetos(self):
-        self.cuerpos.append
+        n = self.config['simulacion']['n']
+        with Pool() as pool:
+            self.cuerpos = pool.map(self.generar_cuerpo, range(n))
+            
 
     def F():
         fuerzas = {}
@@ -52,8 +64,10 @@ class SimulacionG:
                         (cuerpo_i.posicion[0] + cuerpo_j.posicion[0])/2,
                         (cuerpo_i.posicion[1] + cuerpo_j.posicion[1])/2 
                     )
-                    cuerpo_new = 
-                    cuerpos_new.append(cuerpo_n)
+                    color = cuerpo_i.color
+                    forma = cuerpo_i.formas
+
+                    cuerpos_new.append(Cuerpo())
                     procesados.add(i)
                     procesados.add(j)
         self.cuerpos = [cuerpo for idx, cuerpo in enumerate(self.cuerpos) if idx not in procesados and cuerpo.activo]
@@ -66,8 +80,9 @@ class SimulacionG:
         self.colisiones()
     
     def dibujar(self, pantalla):
-        pantalla.fill(BACKGROUND_COLOR)
+        background = tuple(self.config['pantalla']['background_color'])
+        pantalla.fill(background)
         for cuerpo in self.cuerpos:
-            if cuerpo.cativo:
-                cuerpo.dibujar(pantalla)
+            if cuerpo.activo:
+                cuerpo.dibujar(pantalla, cuerpo_posicion, cuerpo.r, cuerpo.trayectoria)
         pygame.display.flip()
