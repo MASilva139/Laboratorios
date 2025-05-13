@@ -1,0 +1,47 @@
+simulacion:
+  # Configuración de la ventana
+  ancho: 1200
+  alto: 800
+  fps: 60
+  color_fondo: [0, 0, 20]  # Azul muy oscuro
+
+distribucion:
+  # Distribución normal para masas
+  masa:
+    mu: 5.972e24  # Masa promedio (kg)
+    sigma: 1.989e24  # Desviación estándar
+  
+  # Distribución uniforme para velocidades
+  velocidad:
+    mu: 0.0  # Velocidad promedio
+    sigma: 1000.0  # Rango de velocidad
+
+  # Distribución uniforme para posiciones polares
+  posicion:
+    r_min: 100  # Distancia mínima al centro
+    r_max: 400  # Distancia máxima al centro
+
+cuerpos:
+  # Número inicial de cuerpos celestes
+  conteo_inicial: 10
+  
+  # Configuración de formas disponibles
+  formas: ["circulo", "cuadrado", "triangulo"]
+  
+  # Configuración de colores
+  color:
+    min: 50  # Valor mínimo RGB
+    max: 255  # Valor máximo RGB
+
+sistema:
+  # Número de hilos para procesamiento paralelo
+  num_hilos: 4
+  
+  # Factor de escala para visualización
+  escala_visual: 1.0
+  
+  # Constante de tiempo para la simulación
+  dt: 0.5
+  
+  # Factor de escala para distancias
+  escala_distancia: 1.0e-9

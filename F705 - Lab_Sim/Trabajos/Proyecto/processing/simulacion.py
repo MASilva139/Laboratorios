@@ -15,6 +15,8 @@ class SimulacionG:
         self.formas = self.config['constantes']['formas']
         self.inicializar_objetos()
 
+    def generar_cuerpo(self, i):
+        a
     
     def inicializar_objetos(self):
         n = self.config['simulacion']['n']

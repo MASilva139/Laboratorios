@@ -1,0 +1,7 @@
+pypi
+typing
+pydantic
+
+numpy
+matplotlib
+pyyaml

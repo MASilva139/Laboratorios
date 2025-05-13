@@ -1,0 +1,20 @@
+simulacion:
+  N: 100000                       # Numero de simulaciones
+
+parametros:
+  v0: 50.0                        # Velocidad inicial media en m/s
+  v0_distribution: "normal"
+  v0_deviation: 0.5
+  
+  G: 9.81
+  G_distribution: "normal"
+  G_deviation: 0.01
+
+  min_angle: 0
+  max_angle: 90
+  angle_distribution: "uniform"
+
+rango_objetivo:
+  dist_min: 50                     # Distancia mínima en metros
+  dist_max: 80                     # Distancia máxima en metros
+  
