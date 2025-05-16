@@ -1,7 +1,7 @@
 parametros:  
   Lx: 1200.0 #Dimension en X de pantalla 
   Ly: 720.0 #Dimension en Y de pantalla
-  N: 200 # numero de particulas
+  N: 20 # numero de particulas
   mu: 70  # media de masa
   sigma: 10 # varianza
   G: 0.04 # Constante gravitacional

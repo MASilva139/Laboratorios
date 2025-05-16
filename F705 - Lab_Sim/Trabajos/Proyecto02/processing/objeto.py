@@ -4,11 +4,11 @@ import pygame
 import random
 import yaml
 import os #ruta absoluta para llamar al .yaml
-# from multiprocessing import Pool, cpu_count
+from multiprocessing import Pool
 
-config_path = os.path.join(os.path.dirname(__file__), "..", "config.yaml")
-config_path = os.path.abspath(config_path)
-
+config_path = "config.yaml"
+# config_path = os.path.join(os.path.dirname(__file__), "..", "config.yaml")
+# config_path = os.path.abspath(config_path)
 
 #<<<<<<<<<<<<<Parametros a usar<<<<<<<<<<<<<<<<<<<<<<
 with open(config_path) as f:
@@ -23,18 +23,15 @@ J = config["parametros"]["J"]
 sigma = config["parametros"]["sigma"]
 dt1 = config["parametros"]["dt1"]
 
-
 #<<<<<<<<<<<<<<<<caracteristicas del cuerpo<<<<<<<<<<<
-
 class propiedades_fisica:
     def __init__(self):
         self.masa = random.normalvariate(mu,sigma)
-        self.posicion = list([random.uniform(1,Lx-1), random.uniform(1,Ly-1)])
+        self.posicion = list([random.uniform(1, Lx - 1), random.uniform(1, Ly - 1)])
         self.v = list([0,0])
         self.r = J*(self.masa)**(1/3) # Relación entre masa y radio
         self.trayectoria = [tuple(self.posicion)]
         self.activo = True
-
 
 class propiedades_visuales:
     def __init__(self):
@@ -68,7 +65,7 @@ class Particula(propiedades_fisica, propiedades_visuales):  #Tiene integrado un 
         propiedades_fisica.__init__(self)
         propiedades_visuales.__init__(self)
 
-    def Force(self, fuerza, dt=dt1):
+    def Force(self, fuerza, dt):
         ax = fuerza[0]/self.masa
         ay = fuerza[1]/self.masa
         self.v[0] += ax * dt
@@ -82,21 +79,21 @@ class Particula(propiedades_fisica, propiedades_visuales):  #Tiene integrado un 
             self.trayectoria = temp_trayectoria
             # self.trayectoria.pop(0)
 
-#<<< CLASE SIMULADOR !! <<<
+def generar_particula(_):
+    return Particula()
 
 class SIMULADOR:
     def __init__(self):
         self.objetos = []
         self.inicializar_objetos()
-        # self.pool = Pool(processes = cpu_count())
-    
-    def inicializar_objetos(self):
-        for i in range(N):
-            self.objetos.append(Particula())
 
-        # No funcionó este metodo, se genera un bucle infinito de creación de pestañas
-        # with Pool() as pool:
-        #     self.objetos = pool.map(Particula, range(N))
+    def inicializar_objetos(self):
+        # for i in range(N):
+        #     self.objetos.append(Particula())
+
+        # Forma 02
+        with Pool() as pool:
+            self.objetos = pool.map(generar_particula, range(N))
     
     
     #<<<<<<<<<<<<<<<<<<<<<<<<< Forma 01 >>>>>>>>>>>>>>>>>>>#
@@ -120,43 +117,7 @@ class SIMULADOR:
                 fuerzas[i][0] += fuerza * math.cos(angulo)
                 fuerzas[i][1] += fuerza * math.sin(angulo)
         return fuerzas
-        
-    #<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Forma 02 >>>>>>>>>>>>>>>>>>>>>>>>>>>>#
-    # Se considera el multiprocessing
-    # def calcular_fuerzas_01(self, args):
-    #     i, objetos = args
-    #     if not objetos[i].activo:
-    #         return i, [0, 0]
-    #     F_Total = [0, 0]
-    #     for j in range(len(objetos)):
-    #         if i == j or not objetos[j].activo:
-    #             continue
-    #         dx = objetos[j].posicion[0] - objetos[i].posicion[0]
-    #         dy = objetos[j].posicion[1] - objetos[i].posicion[1]
-    #         distancia = math.hypot(dx, dy) + 1e-3  # Evitar división por cero
-            
-    #         fuerza = G * objetos[i].masa * objetos[j].masa / (distancia**2)
-    #         angulo = math.atan2(dy, dx)
-            
-    #         F_Total[0] += fuerza * math.cos(angulo)
-    #         F_Total[1] += fuerza * math.sin(angulo)
-    #     return i, F_Total
 
-    # def cfuerza(self):
-    #     args = [(i, self.objetos) for i in range(len(self.objetos))]
-        
-    #     resultados =  self.pool.map(self.calcular_fuerzas_01, args)
-    #     fuerzas = {}
-    #     for i, fuerza in resultados:
-    #         fuerzas[i] = fuerza
-    #     return fuerzas
-
-    # def __del__(self):
-    #     self.pool.close()
-    #     self.pool.join()
-    # ¡¡¡¡¡¡¡¡¡¡¡ No funciono el código !!!!!!!!!!!!!!!!!
-
-    #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Continua el codigo original >>>>>>>>>>>>>>>>>>>>>>>>>>>>>#
     def detectar_colisiones(self):
         nuevos_objetos = []
         procesados = set()
@@ -193,14 +154,13 @@ class SIMULADOR:
                        if idx not in procesados and obj.activo]
         self.objetos.extend(nuevos_objetos)
 
-    def actualizar(self):
+    def actualizar(self, dt):
         fuerzas = self.calcular_fuerzas()  # Forma sin multiprocessing
         # fuerzas = self.cfuerza()    # Forma con multiprocessing
         for idx, fuerza in fuerzas.items():
-            self.objetos[idx].Force(fuerza)
+            self.objetos[idx].Force(fuerza, dt)
         self.detectar_colisiones()
     
-
     def dibujar(self, pantalla):
         pantalla.fill((0,0,0))
         for obj in self.objetos:
@@ -210,30 +170,29 @@ class SIMULADOR:
 
 
 #<<<<<<<<<<<Simulacion<<<<<<<<<<<
-pygame.init()
-# Configurar pantalla
-WIDTH, HEIGHT = Lx, Ly
-pantalla = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Prueba 1")
+# pygame.init()
+# # Configurar pantalla
+# WIDTH, HEIGHT = Lx, Ly
+# pantalla = pygame.display.set_mode((WIDTH, HEIGHT))
+# pygame.display.set_caption("Prueba 1")
 
-# Reloj para controlar FPS
-clock = pygame.time.Clock()
+# # Reloj para controlar FPS
+# clock = pygame.time.Clock()
 
-S=SIMULADOR()
-S.inicializar_objetos()
+# S=SIMULADOR()
+# S.inicializar_objetos()
+
+# # Bucle principal
+# running = True
+# while running:
+#     clock.tick(60)  # 60 FPS
+
+#     for event in pygame.event.get():
+#         if event.type == pygame.QUIT:
+#             running = False
+
+#     S.actualizar()
+#     S.dibujar(pantalla)
 
 
-# Bucle principal
-running = True
-while running:
-    clock.tick(60)  # 60 FPS
-
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-
-    S.actualizar()
-    S.dibujar(pantalla)
-
-
-pygame.quit()
+# pygame.quit()
