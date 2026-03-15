@@ -4,38 +4,40 @@ import pygame
 import random
 import yaml
 import os #ruta absoluta para llamar al .yaml
-from multiprocessing import Pool
 
-config_path = "config.yaml"
-# config_path = os.path.join(os.path.dirname(__file__), "..", "config.yaml")
-# config_path = os.path.abspath(config_path)
+config_path = os.path.join(os.path.dirname(__file__), "..", "config.yaml")
+config_path = os.path.abspath(config_path)
+
 
 #<<<<<<<<<<<<<Parametros a usar<<<<<<<<<<<<<<<<<<<<<<
 with open(config_path) as f:
     import yaml
     config = yaml.safe_load(f)
-N = config["parametros"]["N"]
-Lx = config["parametros"]["Lx"]
-Ly = config["parametros"]["Ly"]
-mu = config["parametros"]["mu"]
-G = config["parametros"]["G"]
-J = config["parametros"]["J"]
-sigma = config["parametros"]["sigma"]
-dt1 = config["parametros"]["dt1"]
+N= config["parametros"]["N"]
+Lx= config["parametros"]["Lx"]
+Ly= config["parametros"]["Ly"]
+mu= config["parametros"]["mu"]
+G=config["parametros"]["G"]
+J=config["parametros"]["J"]
+sigma=config["parametros"]["sigma"]
+dt1=config["parametros"]["dt1"]
+
 
 #<<<<<<<<<<<<<<<<caracteristicas del cuerpo<<<<<<<<<<<
+
 class propiedades_fisica:
     def __init__(self):
         self.masa = random.normalvariate(mu,sigma)
-        self.posicion = list([random.uniform(1, Lx - 1), random.uniform(1, Ly - 1)])
+        self.posicion = list([random.uniform(1,Lx-1), random.uniform(1,Ly-1)])
         self.v = list([0,0])
         self.r = J*(self.masa)**(1/3) # Relación entre masa y radio
         self.trayectoria = [tuple(self.posicion)]
         self.activo = True
 
+
 class propiedades_visuales:
     def __init__(self):
-        self.color = (random.randint(100,255),random.randint(100,255),random.randint(100,255))
+        self.color = (random.randint(180,255),random.randint(180,255),random.randint(180,255))
         self.forma = random.randint(1,3)
 
     def draw(self, pantalla):
@@ -65,7 +67,7 @@ class Particula(propiedades_fisica, propiedades_visuales):  #Tiene integrado un 
         propiedades_fisica.__init__(self)
         propiedades_visuales.__init__(self)
 
-    def Force(self, fuerza, dt):
+    def Force(self, fuerza, dt=dt1):
         ax = fuerza[0]/self.masa
         ay = fuerza[1]/self.masa
         self.v[0] += ax * dt
@@ -73,31 +75,21 @@ class Particula(propiedades_fisica, propiedades_visuales):  #Tiene integrado un 
         self.posicion[0] += self.v[0] * dt
         self.posicion[1] += self.v[1] * dt
         self.trayectoria.append((self.posicion[0], self.posicion[1]))
-        temp_trayectoria = []
         if len(self.trayectoria) > 1000:
-            temp_trayectoria = self.trayectoria[1:]
-            self.trayectoria = temp_trayectoria
-            # self.trayectoria.pop(0)
+            self.trayectoria.pop(0)
 
-def generar_particula(_):
-    return Particula()
+#<<< CLASE SIMULADOR !! <<<
 
 class SIMULADOR:
     def __init__(self):
         self.objetos = []
         self.inicializar_objetos()
-
+    
     def inicializar_objetos(self):
-        # for i in range(N):
-        #     self.objetos.append(Particula())
-
-        # Forma 02
-        with Pool() as pool:
-            self.objetos = pool.map(generar_particula, range(N))
+        for i in range(N):
+            self.objetos.append(Particula())
     
     
-    #<<<<<<<<<<<<<<<<<<<<<<<<< Forma 01 >>>>>>>>>>>>>>>>>>>#
-    # No se considera el multiprocessing
     def calcular_fuerzas(self): # Cada i-esimo elemento de esta lista es para cada i-esima particula
         fuerzas = {}
         for i in range(len(self.objetos)): 
@@ -154,13 +146,13 @@ class SIMULADOR:
                        if idx not in procesados and obj.activo]
         self.objetos.extend(nuevos_objetos)
 
-    def actualizar(self, dt):
-        fuerzas = self.calcular_fuerzas()  # Forma sin multiprocessing
-        # fuerzas = self.cfuerza()    # Forma con multiprocessing
+    def actualizar(self):
+        fuerzas = self.calcular_fuerzas()
         for idx, fuerza in fuerzas.items():
-            self.objetos[idx].Force(fuerza, dt)
+            self.objetos[idx].Force(fuerza)
         self.detectar_colisiones()
     
+
     def dibujar(self, pantalla):
         pantalla.fill((0,0,0))
         for obj in self.objetos:
@@ -170,29 +162,30 @@ class SIMULADOR:
 
 
 #<<<<<<<<<<<Simulacion<<<<<<<<<<<
-# pygame.init()
-# # Configurar pantalla
-# WIDTH, HEIGHT = Lx, Ly
-# pantalla = pygame.display.set_mode((WIDTH, HEIGHT))
-# pygame.display.set_caption("Prueba 1")
+pygame.init()
+# Configurar pantalla
+WIDTH, HEIGHT = Lx, Ly
+pantalla = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Prueba 1")
 
-# # Reloj para controlar FPS
-# clock = pygame.time.Clock()
+# Reloj para controlar FPS
+clock = pygame.time.Clock()
 
-# S=SIMULADOR()
-# S.inicializar_objetos()
-
-# # Bucle principal
-# running = True
-# while running:
-#     clock.tick(60)  # 60 FPS
-
-#     for event in pygame.event.get():
-#         if event.type == pygame.QUIT:
-#             running = False
-
-#     S.actualizar()
-#     S.dibujar(pantalla)
+S=SIMULADOR()
+S.inicializar_objetos()
 
 
-# pygame.quit()
+# Bucle principal
+running = True
+while running:
+    clock.tick(60)  # 60 FPS
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    S.actualizar()
+    S.dibujar(pantalla)
+
+
+pygame.quit()
