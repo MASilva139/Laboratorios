@@ -184,7 +184,6 @@ def build_results_table(
         ycol: str, 
         method: str = 'linear'
 ) -> pd.DataFrame:
-    """Construye tabla con potenciales de frenado y frecuencias."""
     frequencies = compute_frequencies(wavelengths_nm)
     rows = []
     for color, df in color_dfs.items():
@@ -209,9 +208,6 @@ def build_results_table_with_uncertainty(
     ycol: str,
     dycol: str
 ) -> pd.DataFrame:
-    """
-    Construye la tabla de resultados incluyendo incertidumbre del potencial de frenado.
-    """
     frequencies = compute_frequencies(wavelengths_nm)
     rows = []
     for color, df in color_dfs.items():
@@ -229,17 +225,19 @@ def build_results_table_with_uncertainty(
     out['sigma_U0_V'] = out['sigma_Vstop_V']
     return out
 
-def fit_planck(results_df: pd.DataFrame, ycol: str = 'Vstop_V', signed_voltage: bool = True) -> dict:
+# def fit_planck(results_df: pd.DataFrame, ycol: str = 'Vstop_V', signed_voltage: bool = True) -> dict:
+def fit_planck(results_df: pd.DataFrame, ycol: str = 'U0_V', signed_voltage: bool = True) -> dict:
     """Ajusta Vstop vs frecuencia y estima h."""
     fit_df = results_df.dropna(subset=['frecuencia_Hz', ycol]).copy()
     x = fit_df['frecuencia_Hz'].values
     y = fit_df[ycol].values
 
     m, b = np.polyfit(x, y, 1)
-    if signed_voltage:
-        h_exp = -m * E_CHARGE
-    else:
-        h_exp = m * E_CHARGE
+    # if signed_voltage:
+    #     h_exp = -m * E_CHARGE
+    # else:
+    #     h_exp = m * E_CHARGE
+    h_exp = m * E_CHARGE
     error_pct = abs(h_exp - H_REAL) / H_REAL * 100
     return {
         'fit_df': fit_df,

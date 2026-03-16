@@ -116,7 +116,7 @@ def main():
     print("\n=== Potenciales de frenado e incertidumbres ===")
     print(results_df[['Color', 'lambda_nm', 'frecuencia_Hz', 'Vstop_V', 'sigma_Vstop_V', 'U0_V', 'sigma_U0_V']])
 
-    # 10. Ajuste lineal ponderado
+    # Ajuste lineal ponderado
     fit_data = fit_planck_weighted(
         results_df,
         xcol='frecuencia_Hz',
@@ -124,6 +124,12 @@ def main():
         sycol='sigma_U0_V'
     )
     print_fit_summary_weighted(fit_data)
+    plot_vstop_vs_frequency(
+        fit_data=fit_data,
+        save=True,
+        folder='F901/Lab05/fig',
+        filename='P05_fig04'
+    )
 
 if __name__ == '__main__':
     main()
